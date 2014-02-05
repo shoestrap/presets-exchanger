@@ -18,15 +18,27 @@ function create_presets_post_type() {
 	register_post_type(
 		'presets',
 		array(
-			'labels'            => array(
-				'name'          => __( 'Presets' ),
-				'singular_name' => __( 'Preset' )
+			'labels'			=> array(
+				'name'			=> __( 'Presets' ),
+				'singular_name'	=> __( 'Preset' )
 			),
-			'public'            => true,
-			'has_archive'       => true,
-			'supports'          => array(
+			'public'			=> true,
+			'has_archive'		=> true,
+			'supports'			=> array(
 				'title',
 				'thumbnail',
+			),
+			'capability_type'	=> array( 'preset', 'presets' ),
+			'capabilities'		=> array(
+				'publish_posts' 		=> 'publish_presets',
+				'edit_posts'			=> 'edit_presets',
+				'edit_others_posts'		=> 'edit_others_presets',
+				'delete_posts'			=> 'delete_presets',
+				'delete_others_posts'	=> 'delete_others_presets',
+				'read_private_posts'	=> 'read_private_presets',
+				'edit_post'				=> 'edit_preset',
+				'delete_post'			=> 'delete_preset',
+				'read_post'				=> 'read_preset',
 			),
 		)
 	);
@@ -47,7 +59,7 @@ function presets_metabox( array $meta_boxes ) {
 
 	$meta_boxes[] = array(
 		'id'         => 'presets_metabox',
-		'title'      => 'Presets Fields',
+		'title'      => 'Redux Export data',
 		'pages'      => array( 'presets', ), // Post type
 		'context'    => 'normal',
 		'priority'   => 'high',
@@ -57,7 +69,7 @@ function presets_metabox( array $meta_boxes ) {
 				'name' => __( 'Redux Export Data' ),
 				'desc' => __( 'Export your theme settings from the Import/Export menu of the theme and paste it here. Please also include an image by clicking on the "Set Featured Image" link on the right.' ),
 				'id'   => $prefix . 'export_data',
-				'type' => 'textarea',
+				'type' => 'text',
 			),
 		),
 	);
@@ -67,3 +79,32 @@ function presets_metabox( array $meta_boxes ) {
 
 if ( !class_exists( 'cmb_Meta_Box' ) )
 	require_once( plugin_dir_path(__FILE__) . 'includes/metabox-init.php' );
+
+
+/*
+ * Add our custom capabilities
+ */
+function add_subscriber_presets_caps() {
+    $subscriber 	= get_role( 'subscriber' );
+    $administrator 	= get_role( 'administrator' );
+
+    $subscriber->add_cap( 'publish_presets' );
+    $subscriber->add_cap( 'edit_presets' );
+    $subscriber->add_cap( 'edit_preset' );
+    $subscriber->add_cap( 'delete_preset' );
+    $subscriber->add_cap( 'read_preset' );
+
+
+    $administrator->add_cap( 'edit_others_posts' );
+    $administrator->add_cap( 'publish_presets' );
+    $administrator->add_cap( 'edit_presets' );
+    $administrator->add_cap( 'edit_others_presets' );
+    $administrator->add_cap( 'delete_presets' );
+    $administrator->add_cap( 'delete_others_presets' );
+    $administrator->add_cap( 'read_private_presets' );
+    $administrator->add_cap( 'edit_preset' );
+    $administrator->add_cap( 'delete_preset' );
+    $administrator->add_cap( 'read_preset' );
+
+}
+add_action( 'admin_init', 'add_subscriber_presets_caps');

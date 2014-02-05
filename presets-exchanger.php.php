@@ -58,7 +58,7 @@ function presets_metabox( array $meta_boxes ) {
 	// Start with an underscore to hide fields from custom fields list
 
 	$meta_boxes[] = array(
-		'id'         => 'presets_metabox',
+		'id'         => 'presets_export_metabox',
 		'title'      => 'Redux Export data',
 		'pages'      => array( 'presets', ), // Post type
 		'context'    => 'normal',
@@ -70,6 +70,23 @@ function presets_metabox( array $meta_boxes ) {
 				'desc' => __( 'Export your theme settings from the Import/Export menu of the theme and paste it here. Please also include an image by clicking on the "Set Featured Image" link on the right.' ),
 				'id'   => $prefix . 'export_data',
 				'type' => 'text',
+			),
+		),
+	);
+
+	$meta_boxes[] = array(
+		'id'         => 'presets_info_metabox',
+		'title'      => 'Redux Export Description',
+		'pages'      => array( 'presets', ), // Post type
+		'context'    => 'normal',
+		'priority'   => 'high',
+		'show_names' => false,
+		'fields'     => array(
+			array(
+				'name' => __( 'Description' ),
+				'desc' => __( 'A small description for your export data' ),
+				'id'   => $prefix . 'export_description',
+				'type' => 'textarea',
 			),
 		),
 	);
@@ -108,3 +125,5 @@ function add_subscriber_presets_caps() {
 
 }
 add_action( 'admin_init', 'add_subscriber_presets_caps');
+
+require_once( plugin_dir_path(__FILE__) . 'includes/template-functions.php' );

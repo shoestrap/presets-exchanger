@@ -13,7 +13,14 @@ function wpmuio_preset_export_code() {
 	<?php if ( !empty( $field_value['_wpmuio_export_description'][0] ) ) : ?><hr><?php endif; ?>
 
 	<?php if ( has_post_thumbnail() ) : ?>
-		<div class="col-md-6"><?php the_post_thumbnail( 'large' ); ?></div>
+		<div class="col-md-6">
+			<?php
+				$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full' );
+				echo '<a href="' . $large_image_url[0] . '" title="' . the_title_attribute( 'echo=0' ) . '" >';
+				the_post_thumbnail( 'large' );
+				echo '</a>';
+			?>
+		</div>
 	<?php endif; ?>
 
 

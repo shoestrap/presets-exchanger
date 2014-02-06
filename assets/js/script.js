@@ -1,7 +1,3 @@
-var client = new ZeroClipboard( document.getElementById("copy-button"), {
-  moviePath: "ZeroClipboard.swf"
-} );
-
 client.on( "load", function(client) {
   // alert( "movie is loaded" );
 

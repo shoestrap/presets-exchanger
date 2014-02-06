@@ -64,7 +64,9 @@ function preset_content_template() {
 			</header>
 
 			<div class="entry-summary">
-				<button class="btn btn-success btn-block" id="copy-button" data-clipboard-text="<?php echo $fields['_wpmuio_export_data'][0]; ?>" title="Copy to Clickboard">Copy to Clipboard</button>
+				<button class="btn btn-success btn-block" id="copy-button-<?php echo $post->ID; ?>" data-clipboard-text="<?php echo $fields['_wpmuio_export_data'][0]; ?>" title="Copy to Clickboard">Copy to Clipboard</button>
+				<script>var client = new ZeroClipboard( $("#copy-button-<?php echo $post->ID; ?>"), { moviePath: "<?php echo SHOESTRAP_PRESETS_URL; ?>/assets/js/ZeroClipboard.swf" } );</script>
+
 			</div>
 
 			<div class="clearfix"></div>
@@ -77,10 +79,10 @@ function preset_content_template() {
 function wpmuio_enqueue_scripts() {
 	if ( is_post_type_archive( 'presets' ) ) {
 
-		wp_register_script( 'presets_zero_clipboard', SHOESTRAP_PRESETS_URL . '/assets/js/ZeroClipboard.js', false, null, true);
+		wp_register_script( 'presets_zero_clipboard', SHOESTRAP_PRESETS_URL . '/assets/js/ZeroClipboard.js' );
 		wp_enqueue_script('presets_zero_clipboard');
 
-		wp_register_script( 'presets_zero_clipboard_script', SHOESTRAP_PRESETS_URL . '/assets/js/script.js', false, null, true);
+		wp_register_script( 'presets_zero_clipboard_script', SHOESTRAP_PRESETS_URL . '/assets/js/script.js' );
 		wp_enqueue_script('presets_zero_clipboard_script');
 	}
 }

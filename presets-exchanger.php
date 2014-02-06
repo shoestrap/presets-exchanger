@@ -3,7 +3,7 @@
 Plugin Name: Presets Exchanger
 Plugin URI: http://wpmu.io
 Description: allow users to exchange their redux export data
-Version: 0.1
+Version: 0.2
 Author: Aristeides Stathopoulos
 Author URI: http://aristeides.com
 GitHub Plugin URI: https://github.com/shoestrap/presets-exchanger

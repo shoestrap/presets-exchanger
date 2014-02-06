@@ -9,6 +9,8 @@ Author URI: http://aristeides.com
 GitHub Plugin URI: https://github.com/shoestrap/presets-exchanger
 */
 
+if ( !defined( 'SHOESTRAP_PRESETS_URL' ) )
+	define( 'SHOESTRAP_PRESETS_URL', plugin_dir_url( __FILE__ ) );
 
 /*
  * Create the "Presets" custom post type
